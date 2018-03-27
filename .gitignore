@@ -4,4 +4,7 @@ __pycache__
 myvenv
 django_db
 parser/
+
+#test code 
 test.py
+cp_*

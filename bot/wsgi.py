@@ -10,8 +10,14 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 import os, sys
 
 #You have to change 'merryman' to 'YourName'
-sys.path.append('/home/merryman/merrybot')
-sys.path.append('/home/merryman/merrybot/myvenv/lib/python3.5/site-packages')
+try:
+	#Server
+	sys.path.append('/home/ubuntu/merrybot')
+	sys.path.append('/home/ubuntu/merrybot/myvenv/lib/python3.5/site-packages')
+except:
+	#Develop
+	sys.path.append('/home/merryman/merrybot')
+	sys.path.append('/home/merryman/merrybot/myvenv/lib/python3.5/site-packages')
 
 from django.core.wsgi import get_wsgi_application
 
