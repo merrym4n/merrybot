@@ -6,21 +6,23 @@ def students_hall():
     result = requests.post(url, data={"type1":"0"})
     content = BeautifulSoup(result.text, 'html.parser')
 
-    print("*학생회관")
+    menu_today = "*학생회관\n"
     menu = content.find("tbody").get_text(' ').split('\n')
 
     buf = []
     for menu_list in menu:
         if menu_list:
             buf.append(menu_list)
-    menu = '\n'.join(buf)
-    return menu
+    menu_today += '\n'.join(buf)
+    
+    return menu_today
 
 def woojung():
     url = "http://m.sejong.ac.kr/front/cafeteria.do"
     result = requests.post(url, data={"type1":"2"})
     content = BeautifulSoup(result.text, 'html.parser')
 
+    menu_today = "*우정당\n"
     days = ['월', '화', '수', '목', '금', '토', '일']
     today = time.localtime().tm_wday
 
@@ -32,13 +34,16 @@ def woojung():
             if menu_list != "식당메뉴":
                 if menu_list:
                     buf.append(menu_list)
-    return "\n".join(buf)
+    menu_today += "\n".join(buf)
+
+    return menu_today
 
 def gunja():
     url = "http://m.sejong.ac.kr/front/cafeteria.do"
     result = requests.post(url, data={"type1":"3"})
     content = BeautifulSoup(result.text, 'html.parser')
 
+    menu_today = "군자관\n"
     days = ['월', '화', '수', '목', '금', '토', '일']
     today = days[time.localtime().tm_wday]
     tomorrow = days[(time.localtime().tm_wday+1)%7]
@@ -53,6 +58,6 @@ def gunja():
 
     today = [s for s in buf if today + '(' in s][0]
     tomorrow = [s for s in buf if tomorrow + '(' in s][0]
-    menu_today = '\n'.join(buf[buf.index(today):buf.index(tomorrow)]).replace("석식","\n석식")
+    menu_today += '\n'.join(buf[buf.index(today):buf.index(tomorrow)]).replace("석식","\n석식")
 
     return menu_today
