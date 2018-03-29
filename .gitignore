@@ -3,7 +3,7 @@
 __pycache__
 myvenv
 django_db
-parser/
+#parser/
 
 #test code 
 test.py
